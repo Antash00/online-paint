@@ -1,0 +1,52 @@
+@import "src/styles/variables"
+
+.Toolbar
+  height: $toolbar-height
+  background-color: white
+  display: flex
+  align-items: center
+  position: absolute
+  width: 100%
+  box-shadow: 0 4px 5px gray
+  padding: 0 10px
+
+  &-btn
+    width: 35px
+    height: 35px
+    border: none
+    background-color: unset
+    cursor: pointer
+    outline: none
+    background-size: cover
+
+    &_brush
+      background: url("../../assets/img/brush.png") no-repeat center center
+
+    &_rect
+      background: url("../../assets/img/rect.png") no-repeat center center
+
+    &_rect
+      background: url("../../assets/img/rect.png") no-repeat center center
+
+    &_circle
+      background: url("../../assets/img/circle.png") no-repeat center center
+
+    &_eraser
+      background: url("../../assets/img/eraser.png") no-repeat center center
+
+    &_line
+      background: url("../../assets/img/line.png") no-repeat center center
+
+    &_color
+      margin-left: 10px
+
+    &_undo
+      margin-left: auto
+      background: url("../../assets/img/undo.png") no-repeat center center
+
+    &_redo
+      background: url("../../assets/img/redo.png") no-repeat center center
+
+    &_save
+      margin-right: 10px
+      background: url("../../assets/img/save.png") no-repeat center center
