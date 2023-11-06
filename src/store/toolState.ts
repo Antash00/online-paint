@@ -1,6 +1,6 @@
 import { makeAutoObservable } from 'mobx'
 
-export class toolState {
+class toolState {
 	tool = null
 
 	constructor() {
@@ -11,3 +11,5 @@ export class toolState {
 		this.tool = tool
 	}
 }
+
+export default new toolState()
