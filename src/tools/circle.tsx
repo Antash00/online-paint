@@ -1,6 +1,6 @@
 import Tool from 'tools/tool'
 
-export default class Rect extends Tool {
+export default class Circle extends Tool {
 	private mouseDown: boolean = false
 	private startX: number = 0
 	private startY: number = 0
@@ -22,7 +22,7 @@ export default class Rect extends Tool {
 	}
 
 	mouseDownHandler(e: MouseEvent) {
-		const target = e.target as HTMLButtonElement
+		const target = e.target as HTMLElement
 		this.mouseDown = true
 		this.ctx.beginPath()
 		this.ctx.moveTo(e.pageX - target.offsetLeft, e.pageY - target.offsetTop)
@@ -38,20 +38,20 @@ export default class Rect extends Tool {
 			let currentY: number = e.pageY - target.offsetTop
 			let width: number = currentX - this.startX
 			let height: number = currentY - this.startY
-			this.draw(this.startX, this.startY, width, height)
+			let r = width >= height ? Math.sqrt((width / 2) ** 2) : Math.sqrt((height / 2) ** 2)
+			this.draw(this.startX, this.startY, r, width >= height ? width : height)
 		}
 
 	}
 
-	draw(x: number, y: number, w: number, h: number) {
+	draw(x: number, y: number, r: number, d: number) {
 		const img = new Image()
 		img.src = this.saved
 		img.onload = () => {
 			this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
 			this.ctx.drawImage(img, 0, 0, this.canvas.width, this.canvas.height)
 			this.ctx.beginPath()
-			this.ctx.rect(x, y, w, h)
-			this.ctx.fill()
+			this.ctx.ellipse(x + d / 2, y + d / 2, r, r, Math.PI / 4, 0, 2 * Math.PI)
 			this.ctx.stroke()
 		}
 

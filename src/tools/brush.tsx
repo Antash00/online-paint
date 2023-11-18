@@ -19,10 +19,10 @@ export default class Brush extends Tool {
 	}
 
 	mouseDownHandler(e: MouseEvent) {
-		const target = e.target as HTMLButtonElement
+		const target = e.target as HTMLElement
 		this.mouseDown = true
-		this.ctx?.beginPath()
-		this.ctx?.moveTo(e.pageX - target.offsetLeft, e.pageY - target.offsetTop)
+		this.ctx.beginPath()
+		this.ctx.moveTo(e.pageX - target.offsetLeft, e.pageY - target.offsetTop)
 	}
 
 	mouseMoveHandler(e: MouseEvent) {
@@ -30,11 +30,10 @@ export default class Brush extends Tool {
 		if (this.mouseDown) {
 			this.draw(e.pageX - target.offsetLeft, e.pageY - target.offsetTop)
 		}
-
 	}
 
 	draw(x: number, y: number) {
-		this.ctx?.lineTo(x, y)
-		this.ctx?.stroke()
+		this.ctx.lineTo(x, y)
+		this.ctx.stroke()
 	}
 }

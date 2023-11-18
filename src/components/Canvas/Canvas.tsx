@@ -10,7 +10,6 @@ export const Canvas = observer(() => {
 
 	useEffect(() => {
 		canvasState.setCanvas(canvasRef.current)
-		//if(canvasRef.current) toolState.setTool(new Brush(canvasRef.current))
 	}, [])
 	return (
 		<div className={ cnCanvas() }>

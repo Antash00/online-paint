@@ -1,9 +1,9 @@
 import Tool from 'tools/tool'
 
-export default class Rect extends Tool {
+export default class Line extends Tool {
 	private mouseDown: boolean = false
-	private startX: number = 0
-	private startY: number = 0
+	private currentX: number = 0
+	private currentY: number = 0
 	private saved: string = ''
 
 	constructor(canvas: HTMLCanvasElement) {
@@ -24,36 +24,30 @@ export default class Rect extends Tool {
 	mouseDownHandler(e: MouseEvent) {
 		const target = e.target as HTMLButtonElement
 		this.mouseDown = true
+		this.currentX = e.pageX - target.offsetLeft
+		this.currentY = e.pageY - target.offsetTop
 		this.ctx.beginPath()
-		this.ctx.moveTo(e.pageX - target.offsetLeft, e.pageY - target.offsetTop)
-		this.startX = e.pageX - target.offsetLeft
-		this.startY = e.pageY - target.offsetTop
+		this.ctx.moveTo(this.currentX, this.currentY)
 		this.saved = this.canvas.toDataURL()
 	}
 
 	mouseMoveHandler(e: MouseEvent) {
-		const target = e.target as HTMLButtonElement
 		if (this.mouseDown) {
-			let currentX: number = e.pageX - target.offsetLeft
-			let currentY: number = e.pageY - target.offsetTop
-			let width: number = currentX - this.startX
-			let height: number = currentY - this.startY
-			this.draw(this.startX, this.startY, width, height)
+			const target = e.target as HTMLButtonElement
+			this.draw(e.pageX - target.offsetLeft, e.pageY - target.offsetTop)
 		}
-
 	}
 
-	draw(x: number, y: number, w: number, h: number) {
+	draw(x: number, y: number) {
 		const img = new Image()
 		img.src = this.saved
 		img.onload = () => {
 			this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
 			this.ctx.drawImage(img, 0, 0, this.canvas.width, this.canvas.height)
 			this.ctx.beginPath()
-			this.ctx.rect(x, y, w, h)
-			this.ctx.fill()
+			this.ctx.moveTo(this.currentX, this.currentY)
+			this.ctx.lineTo(x, y)
 			this.ctx.stroke()
 		}
-
 	}
 }
