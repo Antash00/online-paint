@@ -52,9 +52,13 @@ export const Toolbar = () => {
 			<button className={ cnToolBar('btn', {circle: true}) } onClick={ () => selectTool('circle') }></button>
 			<button className={ cnToolBar('btn', {eraser: true}) } onClick={ () => selectTool('eraser') }></button>
 			<button className={ cnToolBar('btn', {line: true}) } onClick={ () => selectTool('line') }></button>
-			<input type={ 'color' } className={ cnToolBar('btn', {color: true}) }/>
-			<button className={ cnToolBar('btn', {undo: true}) }></button>
-			<button className={ cnToolBar('btn', {redo: true}) }></button>
+			<input type={ 'color' } onChange={ (e) => {
+				toolState.setStrokeColor(e.target.value)
+				toolState.setFillColor(e.target.value)
+			} }
+			       className={ cnToolBar('btn', {color: true}) }/>
+			<button className={ cnToolBar('btn', {undo: true}) } onClick={ () => canvasState.undo() }></button>
+			<button className={ cnToolBar('btn', {redo: true}) } onClick={ () => canvasState.redo() }></button>
 			<button className={ cnToolBar('btn', {save: true}) }></button>
 		</div>
 	)
